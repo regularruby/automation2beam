@@ -3,7 +3,7 @@ const os = require('os')
 const path = require('path')
 const AdmZip = require('adm-zip');
 
-const beamMods = path.join(os.homedir(), "Documents", "BeamNG.drive", "mods")
+const beamMods = path.join(os.homedir(), "Documents", "BeamNG.drive", "mods-old")
 const beamRepo = path.join(beamMods, "repo")
 const ModderDir = path.join(os.homedir(), "Documents", "My Games", "carModifyer")
 const unzipMods = path.join(ModderDir, "unzipedMods")
@@ -85,14 +85,18 @@ function modSelect(modName, folder) {
 
     let div = document.getElementById('modName');
     div.innerHTML = modName;
-    
-    let img = document.getElementById('previewImage');
-    img.innerHTML = '';
-    img = document.createElement('img');
-    img.classList.add('previewImage');
-    img.src = path.join(ModderDir, "unzipedMods", modName, "vehicles", modName, "default.png")
-    document.getElementById('previewImage').appendChild(img);
-    
+
+    fs.readdir(path.join(ModderDir, "unzipedMods", modName, "vehicles"), "utf8", (err, folders) => {
+        if (err) console.err(err);
+        let trimName = folders[0]
+
+        let img = document.getElementById('previewImage');
+        img.innerHTML = '';
+        img = document.createElement('img');
+        img.classList.add('previewImage');
+        img.src = path.join(ModderDir, "unzipedMods", modName, "vehicles", trimName, "default.png")
+        document.getElementById('previewImage').appendChild(img);
+    })
 }
 
 function ForEach(arr, callback1, callback2) {
