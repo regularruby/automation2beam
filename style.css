@@ -1,0 +1,110 @@
+:root {
+    --height: 1000;
+    --color00: white;
+    --color01: black;
+    --color02: #282828;
+    --color03: #505050;
+    --color04: #462222;
+    --color05: #823737;
+}
+
+body {
+    background-color: var(--color03);
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+    color: var(--color00);
+    font-family: Helvetica;
+}
+
+.title {
+    text-align: center;
+    font-size: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: var(--color03);
+    border-style: solid;
+    border-width: 3px;
+    border-color: var(--color01);
+    overflow: hidden;
+}
+
+.button {
+    cursor: pointer;
+    background-color: var(--color04);
+    border-style: solid;
+    border-color: var(--color01);
+    border-width: 2px;
+    border-radius: 10px;
+}
+
+.button:hover {
+    background-color: var(--color05);
+}
+
+.button-container {
+    margin-top: 40px;
+    height: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+img {
+    padding-left: 2.5px;
+    padding-top: 2.5px;
+    width: 55px;
+    height: 55px;
+}
+
+.but-icon {
+    width: 60px;
+    height: 60px;
+}
+
+#modsTitle {
+    padding-left: 10px;
+}
+
+.carName {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    margin-left: 10px;
+    margin-top: 6px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.modList {
+    background-color: var(--color02);
+    width: 15%;
+    min-width: 200px;
+    max-width: 300px;
+    height: 97vh;
+    margin-left: 5px;
+    float: left;
+}
+
+.preview {
+    width: 30%;
+    float: left;
+    margin-left: 30px;
+}
+
+#mods {
+    height: calc(97vh - 200px);
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.info {
+    background-color: var(--color02);
+    height: calc(97vh - 60px);
+}
+
+.previewImage {
+    width: calc(50%);
+    height: calc(50%);
+}
