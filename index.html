@@ -13,9 +13,12 @@
     <div class="title">mods</div>
     <div id="mods"></div>
     <div class="button-container">
-      <div class="button but-icon" id="modList-back"><img src="icon/left.jpg"></div>
+      <div class="button but-icon" id="modList-back" onclick="PrevPage();"><img src="icon/left.jpg"></div>
       <div class="button but-icon" id="modList-load" onclick="findMods();"><img src="icon/file.jpg"></div>
-      <div class="button but-icon" id="modList-forward"><img src="icon/right.jpg"></div>
+      <div class="button but-icon" id="modList-forward" onclick="NextPage();"><img src="icon/right.jpg"></div>
+    </div>
+    <div class='page-count'>
+      <div id="pageNumber">1 / 5</div>
     </div>
   </div>
   <div class="preview">
@@ -26,8 +29,6 @@
   </div>
 
 </body>
-<script src="extra_modules/jquery.min.js"></script>
-<script src="extra_modules/pagination.min.js"></script>
 <script src="index.js"></script>
 
 </html>

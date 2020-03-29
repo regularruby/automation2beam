@@ -10,10 +10,17 @@ const unzipMods = path.join(ModderDir, "unzipedMods")
 
 let Mods = []
 
-let index = 0
+let itemPerPage = 0;
+let currentPage = 1;
+let pageCount = 0;
 
-document.onload = () => {
+window.onload = () => {
+    itemPerPage = Math.floor(document.getElementById('mods').clientHeight / 36)
     findMods();
+}
+
+window.onresize = () => {
+    itemPerPage = Math.floor(document.getElementById('mods').clientHeight / 36)
 }
 
 function findMods() {
@@ -61,12 +68,10 @@ function getMod(file, location) {
                 let name = document.createElement('div');
                 name.classList.add('carName');
                 name.classList.add('button');
-                name.id = `Mod_${index}`;
                 name.innerHTML = mod;
                 name.setAttribute("onclick", `modSelect(${JSON.stringify(mod)}, ${JSON.stringify(folder)})`)
                 document.getElementById('mods').appendChild(name);
                 Mods.push(mod)
-                index++;
 
                 //zip.extractAllTo(unzipMods, true)
             }
@@ -75,6 +80,22 @@ function getMod(file, location) {
 }
 
 function LoadedMods() {
+    console.log(Mods)
+}
+
+function NextPage() {
+    if (currentPage < pageCount) {
+        currentPage++
+    }
+}
+
+function PrevPage() {
+    if (currentPage > 1) {
+        currentPage--
+    }
+}
+
+function updateModList() {
 
 }
 
