@@ -3,7 +3,7 @@ const os = require('os')
 const path = require('path')
 const AdmZip = require('adm-zip');
 
-const beamMods = path.join(os.homedir(), "Documents", "BeamNG.drive", "mods")
+const beamMods = path.join(os.homedir(), "Documents", "BeamNG.drive", "mods-old")
 const beamRepo = path.join(beamMods, "repo")
 const ModderDir = path.join(os.homedir(), "Documents", "My Games", "carModifyer")
 const unzipMods = path.join(ModderDir, "unzipedMods")
@@ -21,6 +21,8 @@ window.onload = () => {
 
 window.onresize = () => {
     itemPerPage = Math.floor(document.getElementById('mods').clientHeight / 36)
+    pageCount = Math.ceil(Mods.length / itemPerPage)
+    updateModList()
 }
 
 function findMods() {

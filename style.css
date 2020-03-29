@@ -3,13 +3,14 @@
     --color00: white;
     --color01: black;
     --color02: #282828;
-    --color03: #505050;
-    --color04: #462222;
-    --color05: #823737;
+    --color03: #353535;
+    --color04: #505050;
+    --color05: #462222;
+    --color06: #823737;
 }
 
 body {
-    background-color: var(--color03);
+    background-color: var(--color04);
     overflow: hidden;
     height: 100vh;
     width: 100%;
@@ -22,7 +23,7 @@ body {
     font-size: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: var(--color03);
+    background-color: var(--color04);
     border-style: solid;
     border-width: 3px;
     border-color: var(--color01);
@@ -31,7 +32,7 @@ body {
 
 .button {
     cursor: pointer;
-    background-color: var(--color04);
+    background-color: var(--color05);
     border-style: solid;
     border-color: var(--color01);
     border-width: 2px;
@@ -39,11 +40,11 @@ body {
 }
 
 .button:hover {
-    background-color: var(--color05);
+    background-color: var(--color06);
 }
 
 .button-container {
-    margin-top: 40px;
+    margin-top: 20px;
     margin-bottom: 10px;
     height: 64px;
     width: 100%;
@@ -56,9 +57,13 @@ body {
     justify-content: center;
 }
 
-#pageCount {
+#pageNumber {
     color: var(--color00);
-    background-color: var(--color01);
+    background-color: var(--color04);
+    padding: 4px 6px 4px 6px;
+    border-style: solid;
+    border-color: var(--color01);
+    border-radius: 7.5px;
 }
 
 img {
@@ -94,7 +99,7 @@ img {
     width: 15%;
     min-width: 200px;
     max-width: 300px;
-    height: 97vh;
+    height: 98vh;
     margin-left: 5px;
     float: left;
 }
@@ -106,14 +111,14 @@ img {
 }
 
 #mods {
-    height: calc(97vh - 200px);
+    height: calc(98vh - 200px);
     overflow-y: hidden;
     overflow-x: hidden;
 }
 
 .info {
     background-color: var(--color02);
-    height: calc(97vh - 60px);
+    height: calc(98vh - 60px);
 }
 
 .previewImage {
