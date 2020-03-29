@@ -14,9 +14,6 @@
   },
   "dependencies": {
     "adm-zip": "^0.4.14",
-    "fs": "0.0.1-security",
-    "jszip": "^3.2.2",
-    "node-zip": "^1.1.1",
-    "unzip": "^0.1.11"
+    "fs": "0.0.1-security"
   }
 }
