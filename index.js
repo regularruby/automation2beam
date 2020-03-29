@@ -3,7 +3,7 @@ const os = require('os')
 const path = require('path')
 const AdmZip = require('adm-zip');
 
-const beamMods = path.join(os.homedir(), "Documents", "BeamNG.drive", "mods-old")
+const beamMods = path.join(os.homedir(), "Documents", "BeamNG.drive", "mods")
 const beamRepo = path.join(beamMods, "repo")
 const ModderDir = path.join(os.homedir(), "Documents", "My Games", "carModifyer")
 const unzipMods = path.join(ModderDir, "unzipedMods")
@@ -28,6 +28,7 @@ function findMods() {
     fs.readdir(beamMods, "utf8", (err, files) => {
         if (err) console.error(err)
         document.getElementById('mods').innerHTML = '';
+        Mods = []
         ForEach(files, async file => {
             if (file == "repo") {
                 repo = true;
@@ -65,38 +66,55 @@ function getMod(file, location) {
 
         zipEntries.forEach((zipEntry) => {
             if (zipEntry.name == "camso_engine.jbeam") {
-                let name = document.createElement('div');
-                name.classList.add('carName');
-                name.classList.add('button');
-                name.innerHTML = mod;
-                name.setAttribute("onclick", `modSelect(${JSON.stringify(mod)}, ${JSON.stringify(folder)})`)
-                document.getElementById('mods').appendChild(name);
-                Mods.push(mod)
-
-                //zip.extractAllTo(unzipMods, true)
+                let obj = {}
+                obj.name = mod;
+                obj.locat = folder
+                Mods.push(obj)
             }
         });
     }
 }
 
 function LoadedMods() {
-    console.log(Mods)
+    pageCount = Math.ceil(Mods.length / itemPerPage)
+    updateModList();
 }
 
 function NextPage() {
     if (currentPage < pageCount) {
         currentPage++
+        updateModList()
     }
 }
 
 function PrevPage() {
     if (currentPage > 1) {
         currentPage--
+        updateModList()
     }
 }
 
 function updateModList() {
+    document.getElementById('pageNumber').innerHTML = `${currentPage} / ${pageCount}`;
 
+    let displayList = []
+
+    for (i = (currentPage - 1) * itemPerPage; i < currentPage * itemPerPage; i++) {
+        if (Mods[i]) {
+            displayList.push(Mods[i])
+        }
+    }
+    document.getElementById('mods').innerHTML = ""
+    displayList.forEach(obj => {
+        let mod = obj.name
+        let folder = obj.locat
+        let name = document.createElement('div');
+        name.classList.add('carName');
+        name.classList.add('button');
+        name.innerHTML = mod;
+        name.setAttribute("onclick", `modSelect(${JSON.stringify(mod)}, ${JSON.stringify(folder)})`)
+        document.getElementById('mods').appendChild(name);
+    })
 }
 
 function modSelect(modName, folder) {
