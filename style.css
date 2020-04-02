@@ -66,7 +66,7 @@ body {
     border-radius: 7.5px;
 }
 
-img {
+.icon {
     padding-left: 2.5px;
     padding-top: 2.5px;
     width: 55px;
@@ -122,6 +122,5 @@ img {
 }
 
 .previewImage {
-    width: calc(50%);
-    height: calc(50%);
+    width: 100%; 
 }

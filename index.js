@@ -3,12 +3,13 @@ const os = require('os')
 const path = require('path')
 const AdmZip = require('adm-zip');
 
-const beamMods = path.join(os.homedir(), "Documents", "BeamNG.drive", "mods-old")
+const beamMods = path.join(os.homedir(), "Documents", "BeamNG.drive", "mods")
 const beamRepo = path.join(beamMods, "repo")
 const ModderDir = path.join(os.homedir(), "Documents", "My Games", "carModifyer")
 const unzipMods = path.join(ModderDir, "unzipedMods")
 
-let Mods = []
+let Mods = [];
+let UnZipedMods = [];
 
 let itemPerPage = 0;
 let currentPage = 1;
@@ -121,14 +122,17 @@ function updateModList() {
 
 function modSelect(modName, folder) {
     let zipLoc = path.join(folder, `${modName}.zip`)
-    var zip = new AdmZip(zipLoc);
-    zip.extractAllTo(path.join(ModderDir, "unzipedMods", modName), true);
+    if (!UnZipedMods.includes(modName)) {
+        var zip = new AdmZip(zipLoc);
+        zip.extractAllTo(path.join(ModderDir, "unzipedMods", modName), true);
+        UnZipedMods.push(modName)
+    }
 
     let div = document.getElementById('modName');
     div.innerHTML = modName;
 
     fs.readdir(path.join(ModderDir, "unzipedMods", modName, "vehicles"), "utf8", (err, folders) => {
-        if (err) console.err(err);
+        if (err) console.error(err);
         let trimName = folders[0]
 
         let img = document.getElementById('previewImage');
@@ -137,6 +141,24 @@ function modSelect(modName, folder) {
         img.classList.add('previewImage');
         img.src = path.join(ModderDir, "unzipedMods", modName, "vehicles", trimName, "default.png")
         document.getElementById('previewImage').appendChild(img);
+
+        fs.readFile(path.join(ModderDir, "unzipedMods", modName, "vehicles", trimName, "camso_engine.jbeam"), "utf8", (err, data) => {
+            if (err) console.error(err);
+
+            let engineFile = data.replace(/[//].*./g, "")
+            //console.log(engineFile)
+            try {
+                console.log(JSON.parse(engineFile))
+            }
+            catch(err) {
+                engineFile = engineFile.replace(/\t|\n|\r| /g, '').replace(/,]/g, ']').replace(/,}/g, '}').replace(/\]\[/g, '],[').replace(/\}\{/g, '},{').replace(/}"/g,'},"').replace(/\]"/g,'],"')
+                ForEach(engineFile.match(/":.[\d.]+"/g), str => {
+                    engineFile = engineFile.replace(str, str.slice(0, -1) + ',"')
+                }, () => {
+                    console.log(JSON.parse(engineFile))
+                })
+            }
+        })
     })
 }
 
