@@ -142,24 +142,63 @@ function modSelect(modName, folder) {
         img.src = path.join(ModderDir, "unzipedMods", modName, "vehicles", trimName, "default.png")
         document.getElementById('previewImage').appendChild(img);
 
-        fs.readFile(path.join(ModderDir, "unzipedMods", modName, "vehicles", trimName, "camso_engine.jbeam"), "utf8", (err, data) => {
+        fs.readFile(path.join(ModderDir, "unzipedMods", modName, "vehicles", trimName, "model_10_trim_8.jbeam"), "utf8", (err, data) => {
             if (err) console.error(err);
-
-            let engineFile = data.replace(/[//].*./g, "")
-            //console.log(engineFile)
-            try {
-                console.log(JSON.parse(engineFile))
-            }
-            catch(err) {
-                engineFile = engineFile.replace(/\t|\n|\r| /g, '').replace(/,]/g, ']').replace(/,}/g, '}').replace(/\]\[/g, '],[').replace(/\}\{/g, '},{').replace(/}"/g,'},"').replace(/\]"/g,'],"')
-                ForEach(engineFile.match(/":.[\d.]+"/g), str => {
-                    engineFile = engineFile.replace(str, str.slice(0, -1) + ',"')
-                }, () => {
-                    console.log(JSON.parse(engineFile))
+            convtJbeam(data, json => {
+                console.log(json)
+                fs.writeFile(path.join(ModderDir, "unzipedMods", modName, "vehicles", trimName, "model_10_trim_8.jbeam"), json, "utf8", err => {
+                    if (err) console.error(err)
                 })
-            }
+            })
         })
     })
+}
+
+function convtJbeam(jbeam, callback) {
+    try {
+        jbeam = JSON.parse(jbeam)
+        callback(jbeam)
+    } catch (err) {
+        //removes comments and formating
+        jbeam = jbeam.replace(/[//].*./g, "")
+        jbeam = jbeam.replace(/\t|\n|\r| /g, '')
+
+        //removes commas
+        jbeam = jbeam.replace(/,]/g, ']')
+        jbeam = jbeam.replace(/,}/g, '}')
+
+        //adds commas
+        jbeam = jbeam.replace(/\]\[/g, '],[')
+        jbeam = jbeam.replace(/\]"/g, '],"')
+        jbeam = jbeam.replace(/\]{/g, '],{')
+
+        jbeam = jbeam.replace(/}{/g, '},{')
+        jbeam = jbeam.replace(/}"/g, '},"')
+        jbeam = jbeam.replace(/}\[/g, '},[')
+
+        jbeam = jbeam.replace(/""/g, '","')
+        jbeam = jbeam.replace(/"{/g, '",{')
+        jbeam = jbeam.replace(/"\[/g, '",[')
+
+        //adds commas for bool and numbers
+        jbeam = jbeam.replace(/true"/g, 'true,"')
+        jbeam = jbeam.replace(/false"/g, 'false,"')
+
+        ForEach(jbeam.match(/":[\d.]+"/g), str => {
+            jbeam = jbeam.replace(str, str.slice(0, -1) + ',"')
+        }, () => {
+            ForEach(jbeam.match(/[\d|\w]+"\w+/g), str => {
+                jbeam = jbeam.replace(str, str.replace('"', '","'))
+            }, () => {
+                ForEach(jbeam.match(/[\d.]+{/g), str => {
+                    jbeam = jbeam.replace(str, str.replace('{', ',{'))
+                }, () => {
+                    jbeam = JSON.parse(jbeam)
+                    callback(jbeam)
+                })
+            })
+        })
+    }
 }
 
 function ForEach(arr, callback1, callback2) {
