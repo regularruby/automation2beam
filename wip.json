@@ -1,0 +1,13 @@
+{
+    "engine": {
+        "settings":[]
+    },
+    "suspention": {
+        "settings":["dampaning", "strength"],
+        "location":["front", "back"]
+    },
+    "fixtures": {
+        "settings":[]
+    },
+    "mod info": ["name","model","color",""]
+}

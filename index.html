@@ -4,32 +4,51 @@
 <head>
   <link rel="stylesheet" type="text/css" href="style.css">
   <meta charset="UTF-8">
-  <title>Hello World!</title>
+  <title>automation modding tool</title>
   <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
 </head>
 
 <body>
-  <div class="modList">
-    <div class="title">mods</div>
-    <div id="mods"></div>
-    <div class="button-container">
-      <div class="button but-icon" id="modList-back" onclick="PrevPage();"><img class="icon" src="icon/left.jpg"></div>
-      <div class="button but-icon" id="modList-load" onclick="findMods();"><img class="icon" src="icon/file.jpg"></div>
-      <div class="button but-icon" id="modList-forward" onclick="NextPage();"><img class="icon" src="icon/right.jpg"></div>
+  <div id="page1">
+    <div class="modList">
+      <div class="title">mods</div>
+      <div id="mods"></div>
+      <div class="button-container">
+        <div class="button but-icon" id="modList-back" onclick="PrevPage();"><img class="icon" src="icon/left.jpg">
+        </div>
+        <div class="button but-icon" id="modList-load" onclick="findMods();"><img class="icon" src="icon/file.jpg">
+        </div>
+        <div class="button but-icon" id="modList-forward" onclick="NextPage();"><img class="icon" src="icon/right.jpg">
+        </div>
+      </div>
+      <div class='page-count'>
+        <div id="pageNumber">0 / 0</div>
+      </div>
     </div>
-    <div class='page-count'>
-      <div id="pageNumber">0 / 0</div>
+    <div class="preview">
+      <div id="modName" class="title">preview</div>
+      <div class="info">
+        <div id="previewImage"></div>
+        <div class="previewData">
+          <div class="data" id="cost">a</div>
+          <div class="data" id="weight">b</div>
+          <div class="data" id="drive">c</div>
+          <div class="data" id="power">d</div>
+          <div class="data" id="torque">e</div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="preview">
-    <div id="modName" class="title">preview</div>
-    <div class="info">
-      <div id="previewImage"></div>
-      
-    </div>
+  <div id="page2">
+    this is page 2
   </div>
-
+  <div class="toolbar">
+    <div id="page1Button" class="button">Car Select</div>
+    <div id="page2Button" class="button">Engine Tuning</div>
+    <div id="page3Button" class="button">Suspention Tuning</div>
+  </div>
 </body>
+
 <script src="index.js"></script>
 
 </html>
